@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.thesmc.dao.NoticeDao">
+	<select id="getNoticeTotal"  resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			NOTICE
+	</select>
+	<select id="getNoticeList" parameterType="map" resultType="Notice">
+		SELECT
+			id,
+			title,
+			name,
+			regdate,
+			display,
+			sdate,
+			edate,
+			displaypop,
+			editor
+		FROM
+			NOTICE
+		LIMIT
+			#{param1} , #{param2}
+	</select>
+	<select id="getNoticeView" parameterType="String" resultType="Notice">
+		SELECT
+			id,
+			title,
+			name,
+			regdate,
+			display,
+			sdate,
+			edate,
+			displaypop,
+			editor
+		FROM
+			NOTICE
+		WHERE
+			id = #{param1} 
+</select>
+	
+	
+	<insert id="insertNotice" parameterType="Notice" >
+	<![CDATA[
+		INSERT INTO NOTICE(   
+			title,
+			name,
+			regdate,
+			display,
+			sdate,
+			edate,
+			displaypop,
+			editor
+		)VALUES (
+			#{title}
+			,#{name}
+			,#{regdate}
+			,#{display}
+			,#{sdate}
+			,#{edate}
+			,#{displaypop}
+			,#{editor}
+		)
+	]]>
+	</insert>
+
+	<update id="updateNotice" parameterType="Notice" >
+		UPDATE NOTICE 
+			<set>
+			title      = #{title},
+			name       = #{name},
+			regdate    = #{regdate},
+			display    = #{display},
+			sdate      = #{sdate},
+			edate      = #{edate},
+			displaypop = #{displaypop},
+			editor     = #{editor}
+			</set>
+		WHERE id = #{id}
+	</update>
+
+	<delete id="deleteNotice" parameterType="String">
+		DELETE 
+		FROM 
+			NOTICE
+		WHERE id = #{id}
+	</delete>
+
+</mapper>
